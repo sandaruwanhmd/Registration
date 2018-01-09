@@ -132,7 +132,8 @@
         </div>
         <div id="signupmodel" class="modal">
             <span onclick="document.getElementById('signupmodel').style.display='none'" class="close" title="Close Modal">×</span>
-            <form class="modal-content animate">
+            <form class="modal-content animate" action="/rout here">
+                {{ csrf_field() }}
                 <div class="container">
                 <label><b>Email</b></label>
                 <input type="text" placeholder="Enter Email" name="email" required>

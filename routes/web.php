@@ -30,3 +30,7 @@ Route::get('/staff', function () {
 Route::get('/organization', function () {
     return view('organization');
 });
+
+Route::get('student/register', function() {
+	return view('welcome');
+});
