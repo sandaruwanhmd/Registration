@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->integer('university_verified')->nullable();
             $table->string('user_role');
+            $table->string('password');
             $table->string('university_name');
             $table->foreign('university_name')->references('name')->on('universities');
             $table->timestamps();
