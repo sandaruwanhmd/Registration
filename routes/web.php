@@ -35,4 +35,4 @@ Route::get('student/register', function() {
 	return view('welcome');
 });
 
-Route::post('/staff', 'universityController@addUniversity');
+Route::post('/staff/register', 'universityController@addUniversity');

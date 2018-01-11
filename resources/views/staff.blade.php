@@ -132,7 +132,7 @@
         </div>
         <div id="signupmodel" class="modal">
             <span onclick="document.getElementById('signupmodel').style.display='none'" class="close" title="Close Modal">×</span>
-            <form class="modal-content animate" method="POST" action="staff">
+            <form class="modal-content animate" method="POST" action="staff/register">
                 {{ csrf_field() }}
                 <div class="container">
 
