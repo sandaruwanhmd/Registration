@@ -12,10 +12,6 @@
 
         <!-- Styles -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-  
-          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
         <style>
             html, body {
@@ -115,67 +111,9 @@
             }
         </style>
     </head>
-    <title>Main Page</title>
+    <title>Student Home Page</title>
     <body>
-        <div class="container">
-            <h2>Staff Login</h2>
-            <form method="POST" action="/staff/home">
-                <div class="form-group">
-                    {{ csrf_field() }}
-                    <label for="userid">User NIC:</label>
-                    <input type="text" class="form-control" id="userid" name="nic" required>
-                </div>
-                <div class="form-group">
-                    <label for="password">Password:</label>
-                    <input type="password" class="form-control" name="password" id="password" required>
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Login</button>
-                    <button type="button" class="btn btn-primary" onclick="document.getElementById('signupmodel').style.display='block'">Sign Up</button>
-                </div>
-            </form>
-        </div>
-        <div id="signupmodel" class="modal">
-            <span onclick="document.getElementById('signupmodel').style.display='none'" class="close" title="Close Modal">×</span>
-            <form class="modal-content animate" method="POST" action="staff">
-                {{ csrf_field() }}
-                <div class="container">
-
-                <label><b>Name</b></label>
-                <input type="text" placeholder="Enter Name" name="name" required>    
-
-                <label><b>Email</b></label>
-                <input type="text" placeholder="Enter Email" name="email" required>
-
-                <label><b>NIC</b></label>
-                <input type="text" placeholder="Enter NIC" name="nic" required>
-
-                <label><b>University Name</b></label>
-                <input type="text" placeholder="Enter University Name" name="university_name" required>
-
-                <label><b>University Country</b></label>
-                <input type="text" placeholder="Enter Country" name="university_country" required>
-
-                <label><b>Password</b></label>
-                <input type="password" placeholder="Enter Password" name="password" required>
-
-                <div class="clearfix">
-                    <button type="button" onclick="document.getElementById('signupmodel').style.display='none'" class="cancelbtn">Cancel</button>
-                    <button type="submit" class="signupbtn">Sign Up</button>
-                </div>
-                </div>
-            </form>
-        </div>
-        <script>
-            // Get the modal
-            var modal = document.getElementById('signupmodel');
-
-            // When the user clicks anywhere outside of the modal, close it
-            window.onclick = function(event) {
-                if (event.target == modal) {
-                    modal.style.display = "none";
-                }
-            }
-        </script>    
+        <center><h1>Time Line</h1></center>
+        <h1>Hello </h1> 
     </body>
 </html>

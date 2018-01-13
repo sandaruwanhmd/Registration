@@ -20,7 +20,7 @@ class usersController extends Controller
     		'email' => $staff->email,
     		'user_role' => 1,
     		'university_name' => $university_name,
-    		'password' => Hash::make($staff->password)
+    		'password' => $staff->password
     	]);
     	\Log::info("==============user also added============");
 
@@ -36,7 +36,7 @@ class usersController extends Controller
     		'user_role' => 3,
     		'university_verified' => 0,
     		'university_name' => $request->university_name,
-    		'password' => Hash::make($request->password)
+    		'password' => $request->password
     	]);
 
     	if(isset($result)){
@@ -48,27 +48,56 @@ class usersController extends Controller
     }
 
     public static function checkLogin(Request $request){
-        \Log::info("==========here it starts==============");
-        \Log::info('functioni called');
         $user = DB::table('users')
                 ->where('nic', $request->nic)
-                ->get();
-        \Log::info($request->password);     
-        \Log::info($user);   
-        \Log::info($user[0]->password);       
+                ->select('first_name', 'password', 'user_role', 'university_verified')
+                ->first();
 
-        if(isset($user)){
-            if(Hash::check($request->password, $user[0]->password)){
+        if(! is_null($user)){
+            if($request->password == $user->password){
                 \Log::info('matches');
-                return Redirect::to('/staff');
-                //return view('staffHome')->with($user);
+                if($user->user_role ==1){
+                    return view('/staffHome')->with('user', $user);
+                }
+                else if($user->user_role ==3 ){
+                    \Log::info('wrong  login');
+                    return Redirect::to('/');
+                }
             } else{
                 \Log::info('wrong  password');
-                return view("student");
+                return Redirect::to('/staff');
             }
         } else {
             \Log::info('wrong user');
             return Redirect::to('/');
-        }        
+        }
+    }
+
+    public static function checkStudentLogin(Request $request){
+        $user = DB::table('users')
+                ->where('nic', $request->nic)
+                ->select('first_name', 'password', 'user_role', 'university_verified')
+                ->first();
+
+        if(! is_null($user)){
+            if($request->password == $user->password){
+                \Log::info('matches');
+                if($user->user_role ==3 ){
+                    if($user->university_verified == 1){
+                        \Log::info($user);
+                        \Log::info('=======with user===');
+                        return view('/studentHome');
+                    }else{
+                        return view('/studentHome');
+                    }
+                }
+            } else{
+                \Log::info('wrong  password');
+                return Redirect::to('/staff');
+            }
+        } else {
+            \Log::info('wrong user');
+            return Redirect::to('/');
+        }
     }    
 }

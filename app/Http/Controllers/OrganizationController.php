@@ -10,14 +10,13 @@ use Illuminate\Support\Facades\DB;
 class OrganizationController extends Controller
 {
     public static function addOrganization(Request $request){
-    	\Log::info("==========here it starts==============");
     	$result = DB::table('organizations')->insertGetId([
     		'name' => $request->name,
     		'email' => $request->email,
     		'university_verified' => 0,
     		'location' => $request->location,
     		'university_name' => $request->university_name,
-    		'password' => Hash::make($request->password)
+    		'password' => $request->password
     	]);
 
     	if(isset($result)){

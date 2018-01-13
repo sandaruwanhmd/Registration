@@ -113,6 +113,7 @@
     </head>
     <title>Staff Home Page</title>
     <body>
-        <h1>Hello {{$user->name}}</h1> 
+        <center><h1>Time Line</h1></center>
+        <h1>Hello {{$user->first_name}}</h1> 
     </body>
 </html>

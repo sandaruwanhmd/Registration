@@ -55,7 +55,7 @@ class universityController extends Controller
     		'email' => $request->email,
     		'user_role' => 1,
     		'university_name' => $request->university_name,
-    		'password' => Hash::make($request->password)
+    		'password' => $request->password
     	]);
     	return $userId;
     }

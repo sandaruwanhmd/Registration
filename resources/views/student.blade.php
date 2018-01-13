@@ -115,14 +115,15 @@
     <body>
         <div class="container">
             <h2>Student Login</h2>
-            <form>
+            <form method="POST" action="/student/home">
+                    {{ csrf_field() }}
             <div class="form-group">
-                <label for="userid">User ID:</label>
-                <input type="text" class="form-control" id="userid">
+                <label for="userid">NIC:</label>
+                <input type="text" class="form-control" name="nic" id="nic">
             </div>
             <div class="form-group">
                 <label for="pwd">Password:</label>
-                <input type="password" class="form-control" id="pwd">
+                <input type="password" class="form-control" name="password" id="Password">
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-primary">Login</button>
