@@ -18,7 +18,11 @@ class universityController extends Controller
     public function addUniversity(Request $request){
 
     	$isAlreadyRegisteredUniversity = DB::table('universities')->where('name', $request->university_name)->first();
-    	if(isset($isAlreadyRegisteredUniversity)){
+        $isAlreadyRegisteredAdmin = DB::table('users')->where('email', $request->email)->orwhere('nic', $request->email)->first();
+        \Log::info($isAlreadyRegisteredUniversity);
+        \Log::info('=========');
+        \Log::info($isAlreadyRegisteredAdmin->first_name);
+    	if(is_null($isAlreadyRegisteredUniversity) || is_null($isAlreadyRegisteredAdmin)){
     		\Log::info('====duplicate university==========');
     		$university_id = 0;
     		return view("staff");

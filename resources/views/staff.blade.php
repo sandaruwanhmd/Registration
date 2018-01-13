@@ -121,12 +121,13 @@
             <h2>Staff Login</h2>
             <form method="POST" action="/staff/login">
                 <div class="form-group">
+                    {{ csrf_field() }}
                     <label for="userid">User NIC:</label>
-                    <input type="text" class="form-control" id="userid" required>
+                    <input type="text" class="form-control" id="userid" name="nic" required>
                 </div>
                 <div class="form-group">
-                    <label for="pwd">Password:</label>
-                    <input type="password" class="form-control" id="password" required>
+                    <label for="password">Password:</label>
+                    <input type="password" class="form-control" name="password" id="password" required>
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary">Login</button>

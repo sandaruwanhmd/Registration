@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 class OrganizationController extends Controller
 {
     public static function addOrganization(Request $request){
+    	\Log::info("==========here it starts==============");
     	$result = DB::table('organizations')->insertGetId([
     		'name' => $request->name,
     		'email' => $request->email,

@@ -41,7 +41,7 @@ Route::get('Organization/register', function() {
 	return view('welcome');
 });
 
-Route::get('staffHome', function() {
+Route::post('staffHome', function() {
 	return view('staffHome');
 });
 

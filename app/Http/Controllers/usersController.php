@@ -47,15 +47,18 @@ class usersController extends Controller
     }
 
     public static function checkLogin(Request $request){
+        \Log::info("==========here it starts==============");
         \Log::info('functioni called');
         $user = DB::table('users')
                 ->where('nic', $request->nic)
                 ->get();
-
-        \Log::info($user);        
+        \Log::info($request->password);     
+        \Log::info($user);   
+        \Log::info($user[0]->password);  
+        $hashed_password = $user[0]->password;      
 
         if(isset($user)){
-            if(Hash::check($user->password, $user->password)){
+            if(Hash::check($request->password, $hashed_password)){
                 \Log::info('matches');
                 return view('staffHome')->with($user);
             } else{
