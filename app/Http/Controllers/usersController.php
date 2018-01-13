@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\UniversityRegistrationMail;
 
 class usersController extends Controller
 {
@@ -52,6 +54,12 @@ class usersController extends Controller
     }
 
     public static function checkLogin(Request $request){
+        $data = ['nic' => $request->nic];
+        \Mail::send('emails.UniversityAdminRegistration', $data, function ($message) use ($request) {
+                            $message->from('noreply@yopmail.com', 'Darshana');
+                            $message->to('ab@yopmail.com', $request->nic);
+                            $message->subject('Welcome to Registration Team');
+                        });
         $user = DB::table('users')
                 ->where('nic', $request->nic)
                 ->select('first_name', 'password', 'user_role', 'university_verified')

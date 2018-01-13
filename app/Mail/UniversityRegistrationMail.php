@@ -33,6 +33,6 @@ class UniversityRegistrationMail extends Mailable
         return 
             $this->subject('UNIVERSITY ADMIN CREATED')
             ->view('emails.UniversityAdminRegistration')
-            ->with($mailData);
+            ->with($this->smailData);
     }
 }
