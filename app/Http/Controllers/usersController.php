@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 
 class usersController extends Controller
 {
@@ -54,20 +55,20 @@ class usersController extends Controller
                 ->get();
         \Log::info($request->password);     
         \Log::info($user);   
-        \Log::info($user[0]->password);  
-        $hashed_password = $user[0]->password;      
+        \Log::info($user[0]->password);       
 
         if(isset($user)){
-            if(Hash::check($request->password, $hashed_password)){
+            if(Hash::check($request->password, $user[0]->password)){
                 \Log::info('matches');
-                return view('staffHome')->with($user);
+                return Redirect::to('/staff');
+                //return view('staffHome')->with($user);
             } else{
                 \Log::info('wrong  password');
                 return view("student");
             }
         } else {
             \Log::info('wrong user');
-            return view("index");
+            return Redirect::to('/');
         }        
     }    
 }

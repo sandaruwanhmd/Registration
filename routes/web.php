@@ -41,13 +41,13 @@ Route::get('Organization/register', function() {
 	return view('welcome');
 });
 
-Route::post('staffHome', function() {
+Route::post('/staffHome', function() {
 	return view('staffHome');
 });
 
 Route::post('/staff/login', 'usersController@checkLogin');
 
-Route::post('/staff/register', 'universityController@addUniversity');
+Route::post('/staff', 'universityController@addUniversity');
 
 Route::post('/student/register', 'usersController@addStudent');
 

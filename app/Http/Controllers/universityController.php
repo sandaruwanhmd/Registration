@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Mail\UniversityRegistrationMail;
+use Illuminate\Support\Facades\Redirect;
+
 use Mail;
 
 class universityController extends Controller
@@ -19,13 +21,9 @@ class universityController extends Controller
 
     	$isAlreadyRegisteredUniversity = DB::table('universities')->where('name', $request->university_name)->first();
         $isAlreadyRegisteredAdmin = DB::table('users')->where('email', $request->email)->orwhere('nic', $request->email)->first();
-        \Log::info($isAlreadyRegisteredUniversity);
-        \Log::info('=========');
-        \Log::info($isAlreadyRegisteredAdmin->first_name);
-    	if(is_null($isAlreadyRegisteredUniversity) || is_null($isAlreadyRegisteredAdmin)){
+    	if((! empty($isAlreadyRegisteredUniversity)) || (! empty($isAlreadyRegisteredAdmin))){
     		\Log::info('====duplicate university==========');
-    		$university_id = 0;
-    		return view("staff");
+    		return Redirect::to('/');
     	} else {
     		$university_id = DB::table('universities')->insertGetId([
 	    		'name' => $request->university_name,
@@ -43,9 +41,9 @@ class universityController extends Controller
     			{
     				$message->to($request->email, 'Testing')->from('noreply@registration.com')->subject('Welcome')
     			})*/
-    			return view("staff");
+                return Redirect::to('staff');
     		} else {
-    			return view("staff");
+    			return Redirect::to('staff');
     		}    		
     	}
 	}
