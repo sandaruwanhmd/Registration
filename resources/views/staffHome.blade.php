@@ -114,6 +114,35 @@
     <title>Staff Home Page</title>
     <body>
         <center><h1>Time Line</h1></center>
-        <h1>Hello {{$user->first_name}}</h1> 
+        <h1>Hello {{$user->first_name}}</h1> <br><br>
+        @if(! empty($students))
+                <table border="2">
+                    <tr>
+                        <th>Student name</th>
+                        <th>Approve</th>
+                    </tr>
+                    @foreach($students as $student)
+                    <tr>
+                        <td><h5><b>{{$student->first_name}}</b></h5></td>
+                        <td><button id="approve" name="approve">{{$student->nic}}</button></td>
+                    </tr>   
+                    @endforeach
+                </table> 
+        @endif
+        <br><br>
+        @if(! empty($organizations))
+                <table border="2">
+                    <tr>
+                        <th>Organization name</th>
+                        <th>Approve</th>
+                    </tr>
+                    @foreach($organizations as $organization)
+                    <tr>
+                        <td><h5><b>{{$organization->name}}</b></h5></td>
+                        <td><button id="approve" name="approve">{{$organization->registration_number}}</button></td>
+                    </tr>                    
+                    @endforeach
+                </table>    
+        @endif
     </body>
 </html>

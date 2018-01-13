@@ -54,12 +54,6 @@ class usersController extends Controller
     }
 
     public static function checkLogin(Request $request){
-        $data = ['nic' => $request->nic];
-        \Mail::send('emails.UniversityAdminRegistration', $data, function ($message) use ($request) {
-                            $message->from('noreply@yopmail.com', 'Darshana');
-                            $message->to('ab@yopmail.com', $request->nic);
-                            $message->subject('Welcome to Registration Team');
-                        });
         $user = DB::table('users')
                 ->where('nic', $request->nic)
                 ->select('first_name', 'password', 'user_role', 'university_verified')
@@ -69,7 +63,15 @@ class usersController extends Controller
             if($request->password == $user->password){
                 \Log::info('matches');
                 if($user->user_role ==1){
+                    $pendingStudents = DB::table('users')->where('user_role', 3)->where('university_verified', 0)->get();
+
+                    $pendingOrganizations = DB::table('organizations')->where('university_verified', 0)->get();
+
+                    if(isset($pendingStudents) || isset($pendingOrganizations)){
+                        return view('/staffHome')->with(['user'=> $user, 'students' => $pendingStudents, 'organizations' => $pendingOrganizations]);
+                    }
                     return view('/staffHome')->with('user', $user);
+                    
                 }
                 else if($user->user_role ==3 ){
                     \Log::info('wrong  login');
