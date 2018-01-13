@@ -16,9 +16,12 @@ class CreateOrganizationsTable extends Migration
         Schema::create('organizations', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('email');
+            $table->string('email')->unique();
             $table->string('location');
             $table->string('password');
+            $table->integer('university_verified');
+            $table->string('university_name');
+            $table->foreign('university_name')->references('name')->on('universities');
             $table->timestamps();
         });
     }

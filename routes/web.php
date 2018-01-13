@@ -23,6 +23,8 @@ Route::get('/student', function () {
     return view('student');
 });
 
+//Route::get('/student', 'universityController@getAllUniversities');
+
 Route::get('/staff', function () {
     return view('staff');
 });
@@ -31,8 +33,22 @@ Route::get('/organization', function () {
     return view('organization');
 });
 
-Route::get('student/register', function() {
+/*Route::get('student/register', function() {
+	return view('welcome');
+});*/
+
+Route::get('Organization/register', function() {
 	return view('welcome');
 });
 
+Route::get('staffHome', function() {
+	return view('staffHome');
+});
+
+Route::post('/staff/login', 'usersController@checkLogin');
+
 Route::post('/staff/register', 'universityController@addUniversity');
+
+Route::post('/student/register', 'usersController@addStudent');
+
+Route::post('/organization/register', 'OrganizationController@addOrganization');

@@ -12,6 +12,10 @@
 
         <!-- Styles -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
         <style>
             html, body {
@@ -115,14 +119,14 @@
     <body>
         <div class="container">
             <h2>Staff Login</h2>
-            <form>
+            <form method="POST" action="/staff/login">
                 <div class="form-group">
-                    <label for="userid">User ID:</label>
-                    <input type="text" class="form-control" id="userid">
+                    <label for="userid">User NIC:</label>
+                    <input type="text" class="form-control" id="userid" required>
                 </div>
                 <div class="form-group">
                     <label for="pwd">Password:</label>
-                    <input type="password" class="form-control" id="pwd">
+                    <input type="password" class="form-control" id="password" required>
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary">Login</button>
@@ -153,11 +157,6 @@
 
                 <label><b>Password</b></label>
                 <input type="password" placeholder="Enter Password" name="psw" required>
-
-                <label><b>Repeat Password</b></label>
-                <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
-                <input type="checkbox" checked="checked"> Remember me
-                <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
 
                 <div class="clearfix">
                     <button type="button" onclick="document.getElementById('signupmodel').style.display='none'" class="cancelbtn">Cancel</button>

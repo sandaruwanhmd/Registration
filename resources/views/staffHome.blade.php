@@ -111,58 +111,8 @@
             }
         </style>
     </head>
-    <title>Main Page</title>
+    <title>Staff Home Page</title>
     <body>
-        <div class="container">
-            <h2>Organization Login</h2>
-            <form>
-                <div class="form-group">
-                    <label for="userid">User ID:</label>
-                    <input type="text" class="form-control" id="userid">
-                </div>
-                <div class="form-group">
-                    <label for="pwd">Password:</label>
-                    <input type="password" class="form-control" id="pwd">
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Login</button>
-                    <button type="button" class="btn btn-primary" onclick="document.getElementById('signupmodel').style.display='block'">Sign Up</button>
-                </div>
-            </form>
-        </div>
-        <div id="signupmodel" class="modal">
-            <span onclick="document.getElementById('signupmodel').style.display='none'" class="close" title="Close Modal">×</span>
-            <form class="modal-content animate" method="POST" action="/organization/register">
-                {{ csrf_field() }}
-                <div class="container">
-                <label><b>Organization Name</b></label>
-                <input type="text" placeholder="Enter Name" class="form-control" name="name" required>
-
-                <label><b>Registration Number</b></label>
-                <input type="text" placeholder="Enter Registration Number" class="form-control" name="nic" required>
-
-                <label><b>Location</b></label>
-                <input type="text" placeholder="Enter Location" class="form-control" name="location" required>
-
-                <label><b>Email</b></label>
-                <input type="email" placeholder="Enter Email" class="form-control" name="email" required>
-
-                <label><b>Password</b></label>
-                <input type="password" placeholder="Enter Password" class="form-control" name="password" required>
-
-                <label><b>University</b></label>
-                <select name="university_name" required>
-                    @foreach($items as $item)
-                        <option value="{{$item->name}}" class="form-control">{{$item->name}}</option>
-                    @endforeach
-                </select>
-
-                <div class="clearfix">
-                    <button type="button" onclick="document.getElementById('signupmodel').style.display='none'" class="cancelbtn">Cancel</button>
-                    <button type="submit" class="signupbtn">Sign Up</button>
-                </div>
-                </div>
-            </form>
-        </div>  
+        <h1>Hello {{$user->name}}</h1> 
     </body>
 </html>

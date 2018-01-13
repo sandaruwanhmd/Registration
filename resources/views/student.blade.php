@@ -132,19 +132,27 @@
         </div>
         <div id="signupmodel" class="modal">
             <span onclick="document.getElementById('signupmodel').style.display='none'" class="close" title="Close Modal">×</span>
-            <form class="modal-content animate" action="/student/register">
+            <form class="modal-content animate" method="POST" action="/student/register">
                 {{ csrf_field() }}
                 <div class="container">
+                <label><b>Name</b></label>
+                <input type="text" placeholder="Enter Name" class="form-control" name="name" required>
+
+                <label><b>NIC</b></label>
+                <input type="text" placeholder="Enter NIC" class="form-control" name="nic" required>
+
                 <label><b>Email</b></label>
-                <input type="text" placeholder="Enter Email" name="email" required>
+                <input type="email" placeholder="Enter Email" class="form-control" name="email" required>
 
                 <label><b>Password</b></label>
-                <input type="password" placeholder="Enter Password" name="psw" required>
+                <input type="password" placeholder="Enter Password" class="form-control" name="password" required>
 
-                <label><b>Repeat Password</b></label>
-                <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
-                <input type="checkbox" checked="checked"> Remember me
-                <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
+                <label><b>University</b></label>
+                <select name="university_name" required>
+                    @foreach($items as $item)
+                        <option value="{{$item->name}}" class="form-control">{{$item->name}}</option>
+                    @endforeach
+                </select>
 
                 <div class="clearfix">
                     <button type="button" onclick="document.getElementById('signupmodel').style.display='none'" class="cancelbtn">Cancel</button>

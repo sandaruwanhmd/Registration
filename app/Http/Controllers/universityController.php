@@ -2,41 +2,66 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\usersController;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Mail\UniversityRegistrationMail;
+use Mail;
 
 class universityController extends Controller
 {
+
+	protected $usersController ='App\Http\Controllers\usersController';
+
     public function addUniversity(Request $request){
 
     	$isAlreadyRegisteredUniversity = DB::table('universities')->where('name', $request->university_name)->first();
     	if(isset($isAlreadyRegisteredUniversity)){
     		\Log::info('====duplicate university==========');
     		$university_id = 0;
+    		return view("staff");
     	} else {
     		$university_id = DB::table('universities')->insertGetId([
 	    		'name' => $request->university_name,
 	    		'country' => $request->university_country
     		]);
-    		\Log::info('========university registered=========')    		;
+    		\Log::info('========university registered=========');
+
+    		//$university_name = $this->getUniversityName($university_id);
+
+    		$user_id = $this->addStaff($request);
+
+    		if(isset($user_id)){
+    			//Mail::to($request->email)->queue(new UniversityRegistrationMail($request));
+    			/*Maill::send('emails.universityAdminRegistration', ['name' => 'Registration'], function($message)
+    			{
+    				$message->to($request->email, 'Testing')->from('noreply@registration.com')->subject('Welcome')
+    			})*/
+    			return view("staff");
+    		} else {
+    			return view("staff");
+    		}    		
     	}
+	}
 
-    	/*$university_id = DB::table('universities')->insertGetId([
-	    		'name' => $request->university_name,
-	    		'country' => $request->university_country
-    		]);*/
-    	
-
-    	//$request->university = getUniversityName($university_id);
-    	\Log::info('here we call it');
-    	\Log::info($university_id);
-    	\Log::info('here it done');
-    	//usersController(addUser($request));	
-    	return view("index")->with($university_id);
+    public function addStaff(Request $request){
+    	$userId = DB::table('users')->insertGetId([
+    		'nic' => $request->nic,
+    		'first_name' => $request->name,
+    		'email' => $request->email,
+    		'user_role' => 1,
+    		'university_name' => $request->university_name,
+    		'password' => Hash::make($request->password)
+    	]);
+    	return $userId;
     }
 
-    public function getUniversityName($university_id){
-    	return DB::table('universities')->where('id', $university_id)->select('name');
-    }
+	public function getAllUniversities(){
+		\Log::info('here function was called');
+		$items = DB::table('universities')->select('name')->get();
+		return view('student', compact($items));
+	}    
+
 }
