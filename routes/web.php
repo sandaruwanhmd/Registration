@@ -45,9 +45,15 @@ Route::get('/staffHome', function() {
 	return view('staffHome');
 });
 
+Route::get('/organizationHome', function(){
+	return view('organizationHome');
+});
+
 Route::post('/staff/home', 'usersController@checkLogin');
 
 Route::post('/student/home', 'usersController@checkStudentLogin');
+
+Route::post('/organization/home', 'OrganizationController@checkOrganizationLogin');
 
 Route::post('/staff', 'universityController@addUniversity');
 

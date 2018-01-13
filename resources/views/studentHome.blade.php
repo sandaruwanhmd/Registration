@@ -114,6 +114,6 @@
     <title>Student Home Page</title>
     <body>
         <center><h1>Time Line</h1></center>
-        <h1>Hello </h1> 
+        <h1>Hello {{$user->first_name}}</h1> 
     </body>
 </html>

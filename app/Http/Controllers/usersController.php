@@ -11,9 +11,12 @@ use Illuminate\Support\Facades\Redirect;
 class usersController extends Controller
 {
     public static function addUser($staff, $university_name){
-    	\Log::info("==========================");
-    	\Log::info($staff);
-    	\Log::info("==========================");
+        $isAlreadyExists = DB::table('users')->where('email', $staff->email)->orwhere('nic', $staff->nic)->count();
+
+        if($isAlreadyExists){
+            $id = 0;
+            return $id;
+        }
     	$id = DB::table('users')->insertGetId([
     		'nic' => $staff->nic,
     		'first_name' => $staff->name,
@@ -22,13 +25,14 @@ class usersController extends Controller
     		'university_name' => $university_name,
     		'password' => $staff->password
     	]);
-    	\Log::info("==============user also added============");
-
-    	\Log::info($id);
     	return $id;
     }
 
     public static function addStudent(Request $request){
+        $isAlreadyExists = DB::table('users')->where('email', $request->email)->orwhere('nic', $request->nic)->count();
+        if($isAlreadyExists){
+            return Redirect::to('/student')->with(['error' => 'Student already exists!']);
+        }
     	$result = DB::table('users')->insertGetId([
     		'nic' => $request->nic,
     		'first_name' => $request->name,
@@ -43,7 +47,7 @@ class usersController extends Controller
     		\Log::info("student added");
     		return view("student");
     	} else{
-    		return view("index");
+    		return Redirect::to('/student')->with(['error' => 'Something went wrong!']);
     	}
     }
 
@@ -61,15 +65,15 @@ class usersController extends Controller
                 }
                 else if($user->user_role ==3 ){
                     \Log::info('wrong  login');
-                    return Redirect::to('/');
+                    return Redirect::to('/staff')->with(['error' => 'Please use student login to sign in!']);
                 }
             } else{
                 \Log::info('wrong  password');
-                return Redirect::to('/staff');
+                return Redirect::to('/staff')->with(['error' => 'Invalid password!']);
             }
         } else {
             \Log::info('wrong user');
-            return Redirect::to('/');
+            return Redirect::to('/staff')->with(['error' => 'Invalid user!']);
         }
     }
 
@@ -86,18 +90,18 @@ class usersController extends Controller
                     if($user->university_verified == 1){
                         \Log::info($user);
                         \Log::info('=======with user===');
-                        return view('/studentHome');
+                        return view('/studentHome')->with('user', $user);
                     }else{
-                        return view('/studentHome');
+                        return Redirect::to('/student')->with(['error' => 'Your account is still pending for university approval!']);
                     }
                 }
             } else{
                 \Log::info('wrong  password');
-                return Redirect::to('/staff');
+                return Redirect::to('/student')->with(['error' => 'Invalid password!']);
             }
         } else {
             \Log::info('wrong user');
-            return Redirect::to('/');
+            return Redirect::to('/student')->with(['error' => 'Invalid user!']);
         }
     }    
 }

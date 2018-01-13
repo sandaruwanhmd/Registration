@@ -133,6 +133,11 @@
                     <button type="submit" class="btn btn-primary">Login</button>
                     <button type="button" class="btn btn-primary" onclick="document.getElementById('signupmodel').style.display='block'">Sign Up</button>
                 </div>
+                <h4><b>
+                    @if(Session::has('error'))
+                        {{Session::get('error')}}
+                    @endif
+                </b></h4>
             </form>
         </div>
         <div id="signupmodel" class="modal">
