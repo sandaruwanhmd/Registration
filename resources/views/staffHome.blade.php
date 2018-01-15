@@ -111,65 +111,38 @@
             }
         </style>
     </head>
-    <title>Main Page</title>
+    <title>Staff Home Page</title>
     <body>
-        <div class="container">
-            <h2>Organization Login</h2>
-            <form method="POST" action="/organization/home">
-                    {{ csrf_field() }}
-                <div class="form-group">
-                    <label for="userid">Registration ID:</label>
-                    <input type="text" class="form-control" name="nic" id="userid" required>
-                </div>
-                <div class="form-group">
-                    <label for="pwd">Password:</label>
-                    <input type="password" name="password" class="form-control" id="pwd" required>
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Login</button>
-                    <button type="button" class="btn btn-primary" onclick="document.getElementById('signupmodel').style.display='block'">Sign Up</button>
-                </div>
-
-                <h4><b>
-                    @if(Session::has('error'))
-                        {{Session::get('error')}}
-                    @endif
-                </b></h4>
-            </form>
-        </div>
-        <div id="signupmodel" class="modal">
-            <span onclick="document.getElementById('signupmodel').style.display='none'" class="close" title="Close Modal">×</span>
-            <form class="modal-content animate" method="POST" action="/organization/register">
-                {{ csrf_field() }}
-                <div class="container">
-                <label><b>Organization Name</b></label>
-                <input type="text" placeholder="Enter Name" class="form-control" name="name" required>
-
-                <label><b>Registration Number</b></label>
-                <input type="text" placeholder="Enter Registration Number" class="form-control" name="nic" required>
-
-                <label><b>Location</b></label>
-                <input type="text" placeholder="Enter Location" class="form-control" name="location" required>
-
-                <label><b>Email</b></label>
-                <input type="email" placeholder="Enter Email" class="form-control" name="email" required>
-
-                <label><b>Password</b></label>
-                <input type="password" placeholder="Enter Password" class="form-control" name="password" required>
-
-                <label><b>University</b></label>
-                <select name="university_name" required>
-                    @foreach($items as $item)
-                        <option value="{{$item->name}}" class="form-control">{{$item->name}}</option>
+        <center><h1>Time Line</h1></center>
+        <h1>Hello {{$user->first_name}}</h1> <br><br>
+        @if(! empty($students))
+                <table border="2">
+                    <tr>
+                        <th>Student name</th>
+                        <th>Approve</th>
+                    </tr>
+                    @foreach($students as $student)
+                    <tr>
+                        <td><h5><b>{{$student->first_name}}</b></h5></td>
+                        <td><button id="approve" name="approve">{{$student->nic}}</button></td>
+                    </tr>   
                     @endforeach
-                </select>
-
-                <div class="clearfix">
-                    <button type="button" onclick="document.getElementById('signupmodel').style.display='none'" class="cancelbtn">Cancel</button>
-                    <button type="submit" class="signupbtn">Sign Up</button>
-                </div>
-                </div>
-            </form>
-        </div>  
+                </table> 
+        @endif
+        <br><br>
+        @if(! empty($organizations))
+                <table border="2">
+                    <tr>
+                        <th>Organization name</th>
+                        <th>Approve</th>
+                    </tr>
+                    @foreach($organizations as $organization)
+                    <tr>
+                        <td><h5><b>{{$organization->name}}</b></h5></td>
+                        <td><button id="approve" name="approve">{{$organization->registration_number}}</button></td>
+                    </tr>                    
+                    @endforeach
+                </table>    
+        @endif
     </body>
 </html>
