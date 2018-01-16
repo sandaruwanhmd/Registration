@@ -50,7 +50,7 @@ class OrganizationController extends Controller
                     if($organization->university_verified == 1){
                         \Log::info($organization);
                         \Log::info('=======with user===');
-                        return Redirect::to('/organizationHome')->with(['organization', $organization,  'success' => 'Your word was submit succesfully!']);
+                        return Redirect::to('/organizationHome')->with(['organization', $organization,  'success' => 'Login succesfully!']);
                     }else{
                         return Redirect::to('/organization')->with(['error' => 'Your company account is still pending for university approval!']);
                     }
