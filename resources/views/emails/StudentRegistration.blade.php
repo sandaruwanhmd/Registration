@@ -44,7 +44,8 @@ a{color:#37aadc}
           <tr>
           <td align="center">
             <p style="font-family:Arial, Helvetica, sans-serif;font-size:14px;line-height:22px;">
-              Your admin account was created for <b>{{$university}}</b> university.
+              Your student account was created for <b>{{$university}}</b> university.<br>
+              Please wait until your account is verified by the university.
             </p>
           </td>
           </tr>

@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class UniversityRegistrationMail extends Mailable
+class StudentRegistrationMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -32,7 +32,7 @@ class UniversityRegistrationMail extends Mailable
     {
         return 
             $this->subject('Welcome to University')
-            ->view('emails.UniversityAdminRegistration')
+            ->view('emails.StudentRegistration')
             ->with($this->mailData);
     }
 }

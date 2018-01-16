@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\UniversityRegistrationMail;
+use App\Mail\StudentRegistrationMail;
 
 class usersController extends Controller
 {
@@ -47,6 +47,9 @@ class usersController extends Controller
 
     	if(isset($result)){
     		\Log::info("student added");
+            $details['name'] = $request->name;
+            $details['university'] = $request->university_name;
+            Mail::to($request->email)->queue(new StudentRegistrationMail($details));
     		return view("student");
     	} else{
     		return Redirect::to('/student')->with(['error' => 'Something went wrong!']);

@@ -31,16 +31,12 @@ class universityController extends Controller
     		]);
     		\Log::info('========university registered=========');
 
-    		//$university_name = $this->getUniversityName($university_id);
-
     		$user_id = $this->addStaff($request);
 
     		if(isset($user_id)){
-    			//Mail::to($request->email)->queue(new UniversityRegistrationMail($request));
-    			/*Maill::send('emails.universityAdminRegistration', ['name' => 'Registration'], function($message)
-    			{
-    				$message->to($request->email, 'Testing')->from('noreply@registration.com')->subject('Welcome')
-    			})*/
+    			$details['name'] = $request->name;
+                $details['university'] = $request->university_name;
+                Mail::to($request->email)->queue(new UniversityRegistrationMail($details));
                 return Redirect::to('staff');
     		} else {
     			return Redirect::to('staff');

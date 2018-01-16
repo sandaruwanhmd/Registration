@@ -55,7 +55,7 @@ return [
     */
 
     /* 'from' => ['address' => null, 'name' => null], */
-    'from' => ['address' => 'noreply@simplifya.com', 'name' => 'Simplifya'],
+    'from' => ['address' => 'darshana@wollstratech.com', 'name' => 'Registration'],
 
     /*
     |--------------------------------------------------------------------------

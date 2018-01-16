@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use App\Mail\OrganizationRegistrationMail;
+use Illuminate\Support\Facades\Mail;
 
 class OrganizationController extends Controller
 {
@@ -27,6 +29,9 @@ class OrganizationController extends Controller
 
     	if(isset($result)){
     		\Log::info("organization added");
+    		$details['name'] = $request->name;
+            $details['university'] = $request->university_name;
+            Mail::to($request->email)->queue(new OrganizationRegistrationMail($details));
     		return view("organization");
     	} else{
     		return Redirect::to('/organization')->with(['error' => 'Something went wrong!']);
